@@ -10,7 +10,7 @@ pipeline {
         }
         stage('Run Tests') {
             steps {
-                sh "${mvn} test -Dcucumber.filter.tags=@firstTest"
+                sh "${mvn} test -Dcucumber.filter.tags=\"@firstTest\""
             }
         }
         stage('Allure Report Generation') {
