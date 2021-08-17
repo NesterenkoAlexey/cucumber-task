@@ -3,7 +3,7 @@ def mvn = "/var/jenkins_home/tools/hudson.tasks.Maven_MavenInstallation/3.6.3/bi
 
 pipeline {
 
-    agent {node { label 'linux'}}
+    agent any
     stages {
         stage('Build') {
             steps {
@@ -22,6 +22,10 @@ pipeline {
                         results: [[path: 'target/reports/allure-results']]
             }
         }
-
+    }
+    post {
+        always {
+            cleanWs notFailBuild: true
+        }
     }
 }
