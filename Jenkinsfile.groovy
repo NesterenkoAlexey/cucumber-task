@@ -2,6 +2,9 @@
 pipeline {
     agent any
     stages {
+        stage('Checkout SCM') {
+            checkOut(params.BRANCH)
+        }
         stage('Build') {
             steps {
                 sh "${mvn} clean compile"
