@@ -4,6 +4,9 @@ def mvn = "/var/jenkins_home/tools/hudson.tasks.Maven_MavenInstallation/3.6.3/bi
 pipeline {
 
     agent any
+    parameters {
+        string(name: 'TAG', defaultValue: '@smoke', description: 'тег для запуска')
+    }
     stages {
         stage('Build') {
             steps {
@@ -12,7 +15,7 @@ pipeline {
         }
         stage('Run Tests') {
             steps {
-                sh "${mvn} test -Dcucumber.filter.tags=\"${TAG}\""
+                sh "${mvn} test -Dcucumber.filter.tags=\"${params.TAG}\""
             }
         }
         stage('Allure Report Generation') {
