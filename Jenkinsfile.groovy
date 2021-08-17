@@ -1,15 +1,20 @@
-pipeline{
+def mvn = "/var/jenkins_home/tools/hudson.tasks.Maven_MavenInstallation/3.6.3/bin/mvn"
+
+pipeline {
     agent any
-    stages{
-        stage('Run Tests'){
-            steps{
-                withMaven(maven: 'maven_3.6.3') {
-                    bat "mvn clean test -Dcucumber.filter.tags='${TAGS}' -ntp"
-                }
+    stages {
+        stage('Build') {
+            steps {
+                sh "${mvn} clean compile"
             }
         }
-        stage('Allure Report Generation'){
-            steps{
+        stage('Run Tests') {
+            steps {
+                sh "${mvn} test -Dcucumber.filter.tags=@firstTest"
+            }
+        }
+        stage('Allure Report Generation') {
+            steps {
                 allure includeProperties: false,
                         jdk: '',
                         results: [[path: 'target/reports/allure-results']]
