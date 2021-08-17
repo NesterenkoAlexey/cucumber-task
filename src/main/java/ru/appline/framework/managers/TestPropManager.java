@@ -6,6 +6,7 @@ import java.util.Properties;
 
 public class TestPropManager {
 
+
     /**
      * Переменна для хранения данных считанных из файла properties и переданных пользователем
      * Т.е. переменная для хранения пользовательских properties
@@ -55,8 +56,8 @@ public class TestPropManager {
     private void loadApplicationProperties() {
         try {
             properties.load(new FileInputStream(
-                    new File("src/main/resources/" +
-                            System.getProperty("propFile", "application") + ".properties")));
+                    "src/main/resources/" +
+                            System.getProperty("propFile", "application") + ".properties"));
         } catch (IOException e) {
             e.printStackTrace();
         }
